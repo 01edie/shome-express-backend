@@ -1,0 +1,1 @@
+export const boolInt = (b: boolean | undefined) => (b ? 1 : 0);
