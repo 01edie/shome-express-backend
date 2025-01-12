@@ -9,7 +9,7 @@ import {
   RefreshTokenParams,
   UserToken,
 } from "../types/request-params";
-import logger from "./logger.service";
+// import logger from "./logger.service";
 import { tokenConfig } from "../config/access-control";
 import { models } from "../db/database";
 import { JWTParam } from "../types";
@@ -55,7 +55,7 @@ export class AuthServices {
         expiresIn: refreshTokenExpiresIn,
       });
 
-      logger.info(`User with id: ${user.username} logged in`);
+      // logger.info(`User with id: ${user.username} logged in`);
 
       const resData: LogInRes = {
         user: {
