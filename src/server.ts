@@ -29,6 +29,7 @@ app.use(
 );
 
 app.use("/api/v1", API_V1);
+<<<<<<< HEAD
 
 
 const sslOptions = {
@@ -37,6 +38,9 @@ const sslOptions = {
 };
 
 
+=======
+// test CD
+>>>>>>> parent of ce6cae8 (test cd 2)
 sequelize
   .authenticate()
   .then(() => {
