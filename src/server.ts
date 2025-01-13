@@ -3,6 +3,7 @@ import { sequelize } from "./db/database";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import helmet from "helmet";
 
 import logger from "./services/logger.service";
 import API_V1 from "./routes/v1/index.router";
@@ -10,12 +11,17 @@ import API_V1 from "./routes/v1/index.router";
 dotenv.config();
 
 const app = express();
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ["http://localhost:4173", "http://localhost:5173","https://app-shome.vercel.app/"],
+    origin: [
+      "http://localhost:4173",
+      "http://localhost:5173",
+      "https://app-shome.vercel.app/",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -27,7 +33,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Database connected!");
-    app.listen(+process.env.SERVER_PORT!, '0.0.0.0', () =>
+    app.listen(+process.env.SERVER_PORT!, () =>
       console.log(`Server running on SERVER_PORT : ${process.env.SERVER_PORT}`)
     );
     process.on("uncaughtException", (err) => {
