@@ -27,7 +27,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log("Database connected!");
-    app.listen(process.env.SERVER_PORT, () =>
+    app.listen(+process.env.SERVER_PORT!, '0.0.0.0', () =>
       console.log(`Server running on SERVER_PORT : ${process.env.SERVER_PORT}`)
     );
     process.on("uncaughtException", (err) => {
