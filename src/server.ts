@@ -28,7 +28,7 @@ app.use(
 );
 
 app.use("/api/v1", API_V1);
-
+// test CD
 sequelize
   .authenticate()
   .then(() => {
