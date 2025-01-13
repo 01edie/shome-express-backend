@@ -4,8 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
-import fs from "fs";
-import https from "https";
+
 import logger from "./services/logger.service";
 import API_V1 from "./routes/v1/index.router";
 
@@ -29,24 +28,13 @@ app.use(
 );
 
 app.use("/api/v1", API_V1);
-<<<<<<< HEAD
-
-
-const sslOptions = {
-  key: fs.readFileSync("sslcerts/server.key"),
-  cert: fs.readFileSync("sslcerts/server.pem"),
-};
-
-
-=======
-// test CD
->>>>>>> parent of ce6cae8 (test cd 2)
+// test CD 2
 sequelize
   .authenticate()
   .then(() => {
     console.log("Database connected!");
-    https.createServer(sslOptions, app).listen(+process.env.SERVER_PORT!, () =>
-      console.log(`Server running on https://localhost:${process.env.SERVER_PORT}`)
+    app.listen(+process.env.SERVER_PORT!, () =>
+      console.log(`Server running on SERVER_PORT : ${process.env.SERVER_PORT}`)
     );
     process.on("uncaughtException", (err) => {
       logger.error(`Uncaught Exception: ${err.stack ?? err.message}`);
