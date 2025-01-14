@@ -39,7 +39,7 @@ app.get("/health", async (req, res) => {
 app.use(
   "/.well-known/pki-validation",
   express.static(
-    path.join(__dirname, "public", ".well-known", "pki-validation")
+    path.join(__dirname, "public", "well-known", "pki-validation")
   )
 );
 
