@@ -28,6 +28,11 @@ app.use(
 );
 
 app.use("/api/v1", API_V1);
+
+app.get("/health", async (req, res) => {
+  res.status(200).send("OK");
+});
+
 // test CD 2
 sequelize
   .authenticate()
