@@ -14,6 +14,8 @@ dotenv.config();
 
 const app = express();
 app.use(helmet());
+app.set("trust proxy", true);
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -30,34 +32,6 @@ app.use(
 );
 
 app.use("/api/v1", API_V1);
-
-// health check
-app.get("/health", async (req, res) => {
-  res.status(200).send("OK");
-});
-
-// for ssl validation
-
-app.get(
-  "/.well-known/pki-validation/A3FFB6C6B296AD3942EFFBFAC6F051F0.txt",
-  (req, res) => {
-    const filePath = path.join(
-      __dirname,
-      "public",
-      "well-known",
-      "pki-validation",
-      "A3FFB6C6B296AD3942EFFBFAC6F051F0.txt"
-    );
-
-    // Check if file exists and serve it
-    if (fs.existsSync(filePath)) {
-      res.sendFile(filePath);
-    } else {
-      res.status(404).send("Validation file not found.");
-    }
-  }
-);
-
 
 sequelize
   .authenticate()
