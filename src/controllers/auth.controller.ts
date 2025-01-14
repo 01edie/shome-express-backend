@@ -26,7 +26,7 @@ export const loginUser = async (
     res.cookie("authToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: accessTokenExpiresIn * 1000,
     });
     res.status(serviceRes.statusCode).json(serviceRes.data?.user);
