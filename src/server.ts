@@ -8,6 +8,7 @@ import helmet from "helmet";
 import logger from "./services/logger.service";
 import API_V1 from "./routes/v1/index.router";
 import path from "path";
+import fs from "fs";
 
 dotenv.config();
 
@@ -36,12 +37,27 @@ app.get("/health", async (req, res) => {
 });
 
 // for ssl validation
-app.use(
-  "/.well-known/pki-validation",
-  express.static(
-    path.join(__dirname, "public", "well-known", "pki-validation")
-  )
+
+app.get(
+  "/.well-known/pki-validation/A3FFB6C6B296AD3942EFFBFAC6F051F0.txt",
+  (req, res) => {
+    const filePath = path.join(
+      __dirname,
+      "public",
+      "well-known",
+      "pki-validation",
+      "A3FFB6C6B296AD3942EFFBFAC6F051F0.txt"
+    );
+
+    // Check if file exists and serve it
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      res.status(404).send("Validation file not found.");
+    }
+  }
 );
+
 
 sequelize
   .authenticate()
