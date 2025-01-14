@@ -7,6 +7,7 @@ import helmet from "helmet";
 
 import logger from "./services/logger.service";
 import API_V1 from "./routes/v1/index.router";
+import path from "path";
 
 dotenv.config();
 
@@ -29,11 +30,19 @@ app.use(
 
 app.use("/api/v1", API_V1);
 
+// health check
 app.get("/health", async (req, res) => {
   res.status(200).send("OK");
 });
 
-// test CD 2
+// for ssl validation
+app.use(
+  "/.well-known/pki-validation",
+  express.static(
+    path.join(__dirname, "public", ".well-known", "pki-validation")
+  )
+);
+
 sequelize
   .authenticate()
   .then(() => {
