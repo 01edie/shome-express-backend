@@ -32,7 +32,13 @@ app.use(
   })
 );
 
+// health check
+app.get("/health", async (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use("/api/v1", API_V1);
+
 
 sequelize
   .authenticate()
