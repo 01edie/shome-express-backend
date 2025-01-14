@@ -39,7 +39,6 @@ app.get("/health", async (req, res) => {
 
 app.use("/api/v1", API_V1);
 
-
 sequelize
   .authenticate()
   .then(() => {
