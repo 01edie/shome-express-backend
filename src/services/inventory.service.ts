@@ -12,7 +12,12 @@ export class InventoryService {
   static async getAllInventories() {
     try {
       const inventories = await models.Inventory.findAll({
-        order: [["stocking_date", "DESC"]],
+        include: {
+          model: models.Expense,
+          as: "expense",
+          attributes: ["transactionType"],
+        },
+        order: [["stocking_date", "DESC"],["itemName","ASC"]],
       });
       return ServiceResponse.success(inventories);
     } catch (error) {
