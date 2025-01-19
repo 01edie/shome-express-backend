@@ -17,7 +17,10 @@ export class InventoryService {
           as: "expense",
           attributes: ["transactionType"],
         },
-        order: [["stocking_date", "DESC"],["itemName","ASC"]],
+        order: [
+          ["stockingDate", "DESC"],
+          ["itemName", "ASC"],
+        ],
       });
       return ServiceResponse.success(inventories);
     } catch (error) {
@@ -101,6 +104,7 @@ export class InventoryService {
       const newExpense = await models.Expense.create(
         {
           transactionDate: new Date(),
+          transactionId: expense.id,
           transactionType: expense.transactionType,
           expenseNameId: expense.expenseNameId,
           quantity: quantityToAssign,

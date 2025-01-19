@@ -26,7 +26,13 @@ export class BoarderService {
   // Get all Boarders
   static async getAllBoarders(): Promise<ServiceResponse<Boarder[]>> {
     try {
-      const boarders = await models.Boarder.findAll();
+      const boarders = await models.Boarder.findAll({
+        order: [
+          ["leavingDate", "DESC"],
+          ["joiningDate", "DESC"],
+          // ["firstName", "ASC"],
+        ],
+      });
       return ServiceResponse.success(boarders);
     } catch (err) {
       if (err instanceof SQError) {

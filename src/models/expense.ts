@@ -20,11 +20,12 @@ export interface ExpenseAttributes {
   targetMonth?: string;
   notes?: string;
   fromInventoryAssignment?: boolean;
+  transactionId?: number;
 }
 
 export type ExpensePk = "id";
 export type ExpenseId = Expense[ExpensePk];
-export type ExpenseOptionalAttributes = "id" | "transactionDate" | "quantity" | "description" | "isAssignLater" | "boarderId" | "employeeId" | "targetMonth" | "notes" | "fromInventoryAssignment";
+export type ExpenseOptionalAttributes = "id" | "transactionDate" | "quantity" | "description" | "isAssignLater" | "boarderId" | "employeeId" | "targetMonth" | "notes" | "fromInventoryAssignment" | "transactionId";
 export type ExpenseCreationAttributes = Optional<ExpenseAttributes, ExpenseOptionalAttributes>;
 
 export class Expense extends Model<ExpenseAttributes, ExpenseCreationAttributes> implements ExpenseAttributes {
@@ -42,6 +43,7 @@ export class Expense extends Model<ExpenseAttributes, ExpenseCreationAttributes>
   targetMonth?: string;
   notes?: string;
   fromInventoryAssignment?: boolean;
+  transactionId?: number;
 
   // Expense belongsTo Boarder via boarderId
   boarder!: Boarder;
@@ -155,6 +157,12 @@ export class Expense extends Model<ExpenseAttributes, ExpenseCreationAttributes>
       allowNull: true,
       defaultValue: false,
       field: 'from_inventory_assignment'
+    },
+    transactionId: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      comment: "the id expense from coming from inventory assignment",
+      field: 'transaction_id'
     }
   }, {
     sequelize,

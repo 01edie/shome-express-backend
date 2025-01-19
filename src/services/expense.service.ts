@@ -67,7 +67,7 @@ export class ExpenseService {
     try {
       const expenses = await models.Expense.findAll({
         where: {
-          fromInventoryAssignment: false,
+          // fromInventoryAssignment: false,
         },
         include: [
           {

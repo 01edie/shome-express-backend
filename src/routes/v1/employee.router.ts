@@ -33,8 +33,8 @@ const validateEmployeeCreation = [
     .withMessage("Employee role must be a string")
     .notEmpty()
     .withMessage("Employee role cannot be empty")
-    .isLength({ max: 20 })
-    .withMessage("Employee role cannot exceed 20 characters"),
+    .isLength({ max: 50 })
+    .withMessage("Employee role cannot exceed 50 characters"),
 
   // salary: Required, must be a positive number
   body("salary")
@@ -68,7 +68,7 @@ const validateEmployeeCreation = [
 
   // leavingDate: Optional, must be a valid date if provided
   body("leavingDate")
-    .optional()
+    .optional({ values: "null" })
     .isISO8601()
     .withMessage("Leaving date must be a valid date"),
 ];

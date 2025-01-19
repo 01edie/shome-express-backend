@@ -21,15 +21,17 @@ export const loginUser = async (
   const serviceRes = await AuthServices.loginUser(req.body);
   if (serviceRes.data && serviceRes.success) {
     const accessToken = serviceRes.data?.tokens.accessToken;
-    const accessTokenExpiresIn = serviceRes.data?.tokens.expiresIn;
+    const expiresIn = serviceRes.data?.tokens.expiresIn * 1000;
 
     res.cookie("authToken", accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: accessTokenExpiresIn * 1000,
+      maxAge: expiresIn,
     });
-    res.status(serviceRes.statusCode).json(serviceRes.data?.user);
+    res
+      .status(serviceRes.statusCode)
+      .json({ ...serviceRes.data?.user, expiresIn: Date.now() + expiresIn });
     return;
   }
 

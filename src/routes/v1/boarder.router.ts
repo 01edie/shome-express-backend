@@ -98,9 +98,9 @@ export const validateBoarderCreation = [
   // roomNo: Optional, must be a positive integer with a max of 2 digits
   body("roomNo")
     .optional()
-    .isInt({ gt: 0, lt: 100 })
+    .isInt({ gt: 0, lt: 999 })
     .withMessage(
-      "Room number must be a positive integer with a maximum of 2 digits"
+      "Room number must be a positive integer with a maximum of 3 digits"
     ),
 
   // joiningDate: Optional, must be a valid ISO date string
@@ -111,7 +111,7 @@ export const validateBoarderCreation = [
 
   // leavingDate: Optional, must be a valid ISO date string if provided
   body("leavingDate")
-    .optional()
+    .optional({ values: "null" })
     .isISO8601()
     .withMessage("Leaving date must be a valid ISO date"),
 ];

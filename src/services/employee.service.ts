@@ -26,7 +26,13 @@ export class EmployeeService {
   // Get all Employees
   static async getAllEmployees(): Promise<ServiceResponse<Employee[]>> {
     try {
-      const employees = await models.Employee.findAll();
+      const employees = await models.Employee.findAll({
+        order: [
+          ["leavingDate", "DESC"],
+          ["joiningDate", "DESC"],
+          // ["firstName", "ASC"],
+        ],
+      });
       return ServiceResponse.success(employees);
     } catch (err) {
       if (err instanceof SQError) {
